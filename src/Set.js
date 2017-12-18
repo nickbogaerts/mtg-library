@@ -28,7 +28,7 @@ class Sets extends Component {
 			return (
 				<div className="panel panel-default" key={card.id}>
 					<div className="panel-heading">
-						<img src={card.image_uris.normal} />
+						<img src={card.card_faces ? card.card_faces[0].image_uris.art_crop : card.image_uris.art_crop} />
 					</div>
 				</div>
 			)
