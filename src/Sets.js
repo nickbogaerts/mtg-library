@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {List, ListItem} from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
-
+import { Link } from 'react-router-dom'
+import ListItemWithRouter from './ListItemWithRouter'
 class Sets extends Component {
 
   constructor(props) {
@@ -35,11 +36,6 @@ class Sets extends Component {
         })
       })
   }
-  
-  itemClickHandler(item) {
-    window.location.href = `/sets/${this.set.code}`
-  }
-
   render() {
     // show a loading message while loading data
     if (!this.state.loaded) {
@@ -55,11 +51,16 @@ class Sets extends Component {
         {sets}
       </List>
     )
-  } 
+  }
+  
+  itemClickHandler(item) {
+    this.history.push(`/sets/${this.set.code}`)
+    //window.location.href = `/sets/${this.set.code}`
+  }
 
   getListItem(set) {
     return (
-      <ListItem
+      <ListItemWithRouter
         key={set.code}
         leftAvatar={<Avatar src={set.icon_svg_uri}  />}
         nestedItems={ set.subsets ? set.subsets.map(set => this.getListItem(set)) : [] }
