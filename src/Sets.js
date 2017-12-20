@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import {List, ListItem} from 'material-ui/List'
+import List from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
-import { Link } from 'react-router-dom'
 import ListItemWithRouter from './ListItemWithRouter'
 class Sets extends Component {
 

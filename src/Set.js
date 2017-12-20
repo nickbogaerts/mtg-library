@@ -1,46 +1,46 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+import {GridList, GridTile} from 'material-ui/GridList';
 
 class Sets extends Component {
 
-	constructor(props) {
-		super(props);
-		
-		this.state = {
-			loaded: false
-		}
-		fetch((props.uri || 'https://api.scryfall.com/cards/search?order=set&q=s:') + (props.code || 'LEA'))
-			.then(response => response.json())
-			.then(response => {
-				this.setState({
-					loaded: true,
-					cards: response.data
-				})
-			})
-	}
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      loaded: false
+    }
+    fetch((props.uri || 'https://api.scryfall.com/cards/search?order=set&q=s:') + (props.code || 'LEA'))
+      .then(response => response.json())
+      .then(response => {
+        this.setState({
+          loaded: true,
+          cards: response.data
+        })
+      })
+  }
 
-	render() {
-		// show a loading message while loading data
-		if (!this.state.loaded) {
-			return (<span>Loading...</span>)
-		}
+  render() {
+    // show a loading message while loading data
+    if (!this.state.loaded) {
+      return (<span>Loading...</span>)
+    }
 
-		let cards = this.state.cards.map((card) => {
-			return (
-				<div className="panel panel-default" key={card.id}>
-					<div className="panel-heading">
-						<img src={card.card_faces ? card.card_faces[0].image_uris.art_crop : card.image_uris.art_crop} />
-					</div>
-				</div>
-			)
-		})
+    let cards = this.state.cards.map((card) => {
+      return (
+        <GridTile key={card.id} title={card.name} containerElement={<Link to={`/card/${card.id}` } />}>
+          <img src={card.card_faces ? card.card_faces[0].image_uris.art_crop : card.image_uris.art_crop} alt={`Illustration by ${card.artist}`} />
+        </GridTile>
+      )
+    })
 
-		// render the set
-		return (
-			<div>
-				{cards}
-			</div>
-		)
-	}   
+    // render the set
+    return (
+      <GridList>
+        {cards}
+      </GridList>
+    )
+  }   
 }
 
 export default Sets
