@@ -28,8 +28,12 @@ class Sets extends Component {
 
     let cards = this.state.cards.map((card) => {
       return (
-        <GridTile key={card.id} title={card.name} containerElement={<Link to={`/card/${card.id}` } />}>
-          <img src={card.card_faces ? card.card_faces[0].image_uris.art_crop : card.image_uris.art_crop} alt={`Illustration by ${card.artist}`} />
+        <GridTile key={card.id} title={card.name}>
+          <Link to={`/card/${card.id}` } style={{
+              display: 'block',
+              height: '100%',
+              'background-size': 'cover',
+              'background-image': `url(${card.card_faces ? card.card_faces[0].image_uris.art_crop : card.image_uris.art_crop})`}} />
         </GridTile>
       )
     })
