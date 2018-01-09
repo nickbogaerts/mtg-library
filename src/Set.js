@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import {GridList, GridTile} from 'material-ui/GridList';
+import { GridList, GridTile } from 'material-ui/GridList'
+import Counter from './Counter'
 
 class Sets extends Component {
 
@@ -28,12 +29,12 @@ class Sets extends Component {
 
     let cards = this.state.cards.map((card) => {
       return (
-        <GridTile key={card.id} title={card.name}>
+        <GridTile key={card.id} title={card.name} subtitle={<Counter count="0" />}>
           <Link to={`/card/${card.id}` } style={{
               display: 'block',
               height: '100%',
-              'background-size': 'cover',
-              'background-image': `url(${card.card_faces ? card.card_faces[0].image_uris.art_crop : card.image_uris.art_crop})`}} />
+              backgroundSize: 'cover',
+              backgroundImage: `url(${card.card_faces ? card.card_faces[0].image_uris.art_crop : card.image_uris.art_crop})`}} />
         </GridTile>
       )
     })
