@@ -4,14 +4,15 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar'
+import { Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import './App.css'
 import Sets from './Sets'
 import Set from './Set'
-import { Route } from 'react-router-dom'
-import { BrowserRouter } from 'react-router-dom'
 
 class App extends Component {
+
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
