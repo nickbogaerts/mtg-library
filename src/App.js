@@ -10,6 +10,7 @@ import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import Sets from './Sets'
 import Set from './Set'
+import Card from './Card'
 
 class App extends Component {
 
@@ -24,6 +25,7 @@ class App extends Component {
             <div>
               <Route exact path='/' component={Sets} />
               <Route path='/sets/:code' render={(props) => <Set {...props.match.params} />} />
+              <Route path='/cards/:id' render={(props) => <Card {...props.match.params} />} />
               </div>
           </BrowserRouter>
         </div>

@@ -1,7 +1,12 @@
 import React from 'react'
-import './ManaCost.css'
+import './Symbols.css'
 
 const SymbolMap = {
+  '{T}': { abbr: 'T', text: 'Tap this permanent' },
+  '{Q}': { abbr: 'Q', text: 'Untap this permanent' },
+  '{E}': { abbr: 'E', text: 'An enery counter' },
+  '{PW}': { abbr: 'PW', text: 'Planeswalker' },
+  '{CHAOS}': { abbr: 'CHAOS', text: 'Chaos' },
   '{W}': { abbr: 'W', text: 'One white mana' },
   '{U}': { abbr: 'U', text: 'One blue mana' },
   '{B}': { abbr: 'B', text: 'One black mana' },
@@ -62,8 +67,8 @@ const SymbolMap = {
   '{G/P}': { abbr: 'GP', text: 'One green mana or two life' }
 }
 
-const ManaCost = ({cost}) => {
-  let innerHTML = cost.replace(/\{.+?\}/g, (symbol) => {
+const ManaCost = (props) => {
+  let innerHTML = props.children.toString().replace(/\{.+?\}/g, (symbol) => {
     return (symbol in SymbolMap ? `<abbr class="card-symbol card-symbol-${SymbolMap[symbol].abbr}" title="${SymbolMap[symbol].text}">${symbol}</abbr>` : symbol)
   })
   return <span dangerouslySetInnerHTML={{__html: innerHTML}} />

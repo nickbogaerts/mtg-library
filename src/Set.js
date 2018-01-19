@@ -39,7 +39,7 @@ class Sets extends Component {
     let cards = this.state.cards.map((card) => {
       return (
         <GridTile key={card.id} title={card.name} subtitle={<Counter count={store[card.id] ? store[card.id].regular : 0} onChangeCount={this.onChangeCardCount.bind(this, card.id)} />}>
-          <Link to={`/card/${card.id}` } style={{
+          <Link to={`/cards/${card.id}` } style={{
               display: 'block',
               height: '100%',
               backgroundSize: 'cover',

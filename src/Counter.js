@@ -19,6 +19,7 @@ class Counter extends Component {
   
   render() {
 
+	  let palette = this.props.muiTheme.palette
     return (
       <div>
         <span style={{fontSize: '24px'}}>{this.state.count}</span>
@@ -26,8 +27,8 @@ class Counter extends Component {
             style={{padding: '0', width: '28px', height: '28px'}}>
           <FontIcon
             className="material-icons"
-            color={this.props.muiTheme.palette.alternateTextColor}
-            hoverColor={fade(this.props.muiTheme.palette.alternateTextColor, 0.4)}
+            color={palette.alternateTextColor}
+            hoverColor={fade(palette.alternateTextColor, 0.4)}
             onClick={this.incrementCount.bind(this)}>add_circle</FontIcon>
         </IconButton>
         <IconButton
@@ -36,8 +37,8 @@ class Counter extends Component {
           <FontIcon
             style={{fontSize: '16px', padding: '0px'}}
             className="material-icons"
-            color={this.props.muiTheme.palette.alternateTextColor}
-            hoverColor={fade(this.props.muiTheme.palette.alternateTextColor, 0.4)}
+            color={palette.alternateTextColor}
+            hoverColor={fade(palette.alternateTextColor, 0.4)}
             onClick={this.decrementCount.bind(this)}>remove_circle</FontIcon>
         </IconButton>
       </div>
