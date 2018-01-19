@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import CardDetails from './CardDetails'
+import CardViewer from './CardViewer'
 
 class Card extends Component {
 
@@ -33,8 +34,10 @@ class Card extends Component {
       palette = this.props.muiTheme.palette
       
     return (
-      <div className="card-details" style={{ backgroundColor: palette.canvasColor }}>
+      <div>
+        <CardViewer card={card} />
 
+        <div className="card-details" style={{ backgroundColor: palette.canvasColor }}>
           { 'card_faces' in card ? (
             <div>
               <CardDetails face={card.card_faces[0]} />
@@ -43,30 +46,10 @@ class Card extends Component {
           ) : (
             <CardDetails face={card} />
           )}
+        </div>
       </div>
     )
   }
 }
 
 export default muiThemeable()(Card)
-
-/*
- *           {
-            switch (card.layout) {
-              case 'split':
-              case 'planar':
-                <SplitCardViewer card=card />
-                break;
-              case 'flip':
-                <FlipCardViewer card=card />
-                break;
-              case 'transform':
-              case 'double-faced_token':
-                <TransformCardViewer card=card />
-                break;
-              default:
-                <CardViewer card=card />
-                break;
-            }
-          }
-          */

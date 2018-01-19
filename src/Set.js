@@ -43,7 +43,7 @@ class Sets extends Component {
               display: 'block',
               height: '100%',
               backgroundSize: 'cover',
-              backgroundImage: `url(${card.card_faces ? card.card_faces[0].image_uris.art_crop : card.image_uris.art_crop})`}} />
+              backgroundImage: `url(${'card_faces' in card && 'image_uris' in card.card_faces[0] ? card.card_faces[0].image_uris.art_crop : card.image_uris.art_crop})`}} />
         </GridTile>
       )
     })

@@ -1,0 +1,64 @@
+.card-viewer {
+  position: relative;
+  max-width: 488px;
+  margin: 0 auto;
+}
+
+.card-viewer.card-viewer-split,
+.card-viewer.card-viewer-meld,
+.card-viewer.card-viewer-planar {
+  max-width: 680px;
+}
+
+.card-viewer-wrapper {
+  padding-top: 139.34426229508197%;
+}
+
+.card-viewer.card-viewer-split .card-viewer-wrapper,
+.card-viewer.card-viewer-meld .card-viewer-wrapper,
+.card-viewer.card-viewer-planar .card-viewer-wrapper {
+  padding-top: 71.76470588235294%;
+}
+
+.card-viewer .card-viewer-card {
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  transition: transform 0.25s linear 0s;
+}
+
+.card-viewer.card-viewer-split .card-viewer-card,
+.card-viewer.card-viewer-meld .card-viewer-card,
+.card-viewer.card-viewer-planar .card-viewer-card {
+  width: 71.76470588235294%;
+  top: -18.885245901639344%;
+  left: 14.11764705882353%;
+  transform: rotateZ(90deg);
+}
+
+.card-viewer.card-viewer-transform .card-viewer-card,
+.card-viewer.card-viewer-double_face_card .card-viewer-card,
+.card-viewer.card-viewer-flip .card-viewer-card {
+  cursor: pointer;
+}
+
+.card-viewer .card-viewer-card.card-viewer-card-front {
+  transition: transform 0.25s linear 0.25s;
+}
+.card-viewer .card-viewer-card.card-viewer-card-back {
+  transform: rotateY(90deg);
+}
+
+.card-viewer.card-viewer-flipped .card-viewer-card.card-viewer-card-front {
+  transform: rotateY(90deg);
+  transition: transform 0.25s linear 0s;
+}
+.card-viewer.card-viewer-flipped .card-viewer-card.card-viewer-card-back {
+  transform: rotateY(0deg);
+  transition: transform 0.25s linear 0.25s;
+}
+
+.card-viewer.card-viewer-flip.card-viewer-flipped .card-viewer-card {
+  transform: rotateZ(180deg);
+}
