@@ -1,9 +1,17 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import CardDetails from './CardDetails'
 import CardViewer from './CardViewer'
 
+/**
+ * Fetches and displays properties of one card from Scryfall
+ * Themeable through muiThemes
+ * 
+ * @class Card
+ * @extends Component
+ */
 class Card extends Component {
 
   constructor(props) {
@@ -50,6 +58,16 @@ class Card extends Component {
       </div>
     )
   }
+}
+
+Card.propTypes = {
+  /**
+   * Scryfall id of the card to display
+   * 
+   * @property id
+   * @type string
+   */
+  id: PropTypes.string
 }
 
 export default muiThemeable()(Card)

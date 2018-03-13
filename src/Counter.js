@@ -6,9 +6,9 @@ import FontIcon from 'material-ui/FontIcon'
 
 class Counter extends Component {
 
-  static defaultProps = {
+  static defaultProps: {
     count: 0,
-	onChangeCount: function() {}
+    onChangeCount: () => {}
   }
   
   constructor(props) {
@@ -19,7 +19,7 @@ class Counter extends Component {
   
   render() {
 
-	  let palette = this.props.muiTheme.palette
+    let palette = this.props.muiTheme.palette
     return (
       <div>
         <span style={{fontSize: '24px'}}>{this.state.count}</span>
@@ -47,11 +47,11 @@ class Counter extends Component {
   
   incrementCount() {
     this.setState({ count: this.state.count + 1 })
-	this.props.onChangeCount(this.state.count)
+  this.props.onChangeCount(this.state.count)
   }
   
   decrementCount() {
-	  if (this.state.count > 0) {
+    if (this.state.count > 0) {
         this.setState({ count: this.state.count - 1 })
         this.props.onChangeCount(this.state.count)
       }
