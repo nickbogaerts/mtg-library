@@ -6,30 +6,34 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar'
 import { Route } from 'react-router-dom'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
 import './App.css'
-import Sets from './Sets'
+import Sets from './containers/Sets'
 import Set from './Set'
 import Card from './Card'
+import store from './store'
 
 class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <div className="App">
-          <header className="App-header">
-            <AppBar title="Card Library" />
-          </header>
-          <BrowserRouter>
-            <div>
-              <Route exact path='/' component={Sets} />
-              <Route path='/sets/:code' render={(props) => <Set {...props.match.params} />} />
-              <Route path='/cards/:id' render={(props) => <Card {...props.match.params} />} />
-              </div>
-          </BrowserRouter>
-        </div>
-      </MuiThemeProvider>
+      <Provider store={store}>
+        <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+          <div className="App">
+            <header className="App-header">
+              <AppBar title="Card Library" />
+            </header>
+            <BrowserRouter>
+              <div>
+                <Route exact path='/' component={Sets} />
+                <Route path='/sets/:code' render={(props) => <Set {...props.match.params} />} />
+                <Route path='/cards/:id' render={(props) => <Card {...props.match.params} />} />
+                </div>
+            </BrowserRouter>
+          </div>
+        </MuiThemeProvider>
+      </Provider>
     )
   }
 }
