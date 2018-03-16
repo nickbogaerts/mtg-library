@@ -6,7 +6,9 @@ import ListItemWithRouter from './ListItemWithRouter'
 class Sets extends Component {
 
   componentDidMount() {
-    this.props.fetchSets()
+    if (!this.props.sets.length) {
+      this.props.fetchSets()
+    }
   }
   
   render() {

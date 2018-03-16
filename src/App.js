@@ -10,7 +10,7 @@ import { Provider } from 'react-redux'
 
 import './App.css'
 import Sets from './containers/Sets'
-import Set from './Set'
+import Set from './containers/Set'
 import Card from './Card'
 import store from './store'
 
