@@ -46,14 +46,16 @@ class Counter extends Component {
   }
   
   incrementCount() {
-    this.setState({ count: this.state.count + 1 })
-  this.props.onChangeCount(this.state.count)
+    let count = this.state.count + 1
+    this.setState({ count: count })
+    this.props.onChangeCount(count)
   }
   
   decrementCount() {
     if (this.state.count > 0) {
-        this.setState({ count: this.state.count - 1 })
-        this.props.onChangeCount(this.state.count)
+    let count = this.state.count - 1
+        this.setState({ count: count })
+        this.props.onChangeCount(count)
       }
   }
 }

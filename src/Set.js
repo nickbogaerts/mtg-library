@@ -13,9 +13,7 @@ class Sets extends Component {
   }
 
   handleChangeCardCount (cardId, count) {
-    //let cardCount = store[cardId] || { regular: 0, foil: 0}
-    //++cardCount.regular
-    //store[cardId] = cardCount
+    this.props.changeCardCount(cardId, false, count)
   }
   
   render() {
@@ -30,7 +28,7 @@ class Sets extends Component {
     let cards = set.cards || []
     let grid = cards.map((card) => {
       return (
-        <GridTile key={card.id} title={card.name} subtitle={<Counter count={/*store[card.id] ? store[card.id].regular :*/ 0} onChangeCount={this.handleChangeCardCount.bind(this, card.id)} />}>
+        <GridTile key={card.id} title={card.name} subtitle={<Counter count={ this.props.savedCards[card.id] ? this.props.savedCards[card.id].regular : 0} onChangeCount={this.handleChangeCardCount.bind(this, card.id)} />}>
           <LazyLoad>
             <Link
               to={`/cards/${card.id}` }

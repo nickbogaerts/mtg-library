@@ -30,7 +30,6 @@ class Sets extends Component {
   
   itemClickHandler(item) {
     this.history.push(`/sets/${this.set.code}`)
-    //window.location.href = `/sets/${this.set.code}`
   }
 
   getListItem(set) {
