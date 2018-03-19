@@ -14,45 +14,33 @@ import CardViewer from './CardViewer'
  */
 class Card extends Component {
 
-  constructor(props) {
-    super(props)
-    
-    this.state = {
-      loaded: false,
-      card: null
+  componentDidMount() {
+    if (!this.props.singleCards[this.props.cardId]) {
+      this.props.fetchCard(this.props.cardId)
     }
-    
-    fetch((props.uri || 'https://api.scryfall.com/cards/') + props.id)
-      .then(response => response.json())
-      .then(response => {
-        this.setState({
-          loaded: true,
-          card: response
-        })
-      })
   }
   
   render() {
     // show a loading message while loading data
-    if (!this.state.loaded) {
+    let card = this.props.singleCards[this.props.cardId],
+      palette = this.props.muiTheme.palette
+    
+    if (!card || card.loading) {
       return (<span>Loading...</span>)
     }
-
-    let card = this.state.card,
-      palette = this.props.muiTheme.palette
       
     return (
       <div>
-        <CardViewer card={card} />
+        <CardViewer card={card.details} />
 
         <div className="card-details" style={{ backgroundColor: palette.canvasColor }}>
           { 'card_faces' in card ? (
             <div>
-              <CardDetails face={card.card_faces[0]} />
-              <CardDetails face={card.card_faces[1]} />
+              <CardDetails face={card.details.card_faces[0]} />
+              <CardDetails face={card.details.card_faces[1]} />
             </div>
           ) : (
-            <CardDetails face={card} />
+            <CardDetails face={card.details} />
           )}
         </div>
       </div>
@@ -64,10 +52,10 @@ Card.propTypes = {
   /**
    * Scryfall id of the card to display
    * 
-   * @property id
+   * @property cardid
    * @type string
    */
-  id: PropTypes.string
+  cardId: PropTypes.string
 }
 
 export default muiThemeable()(Card)

@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 import './App.css'
 import Sets from './containers/Sets'
 import Set from './containers/Set'
-import Card from './Card'
+import Card from './containers/Card'
 import store from './store'
 
 class App extends Component {
@@ -28,7 +28,7 @@ class App extends Component {
               <div>
                 <Route exact path='/' component={Sets} />
                 <Route path='/sets/:code' render={(props) => <Set {...props.match.params} />} />
-                <Route path='/cards/:id' render={(props) => <Card {...props.match.params} />} />
+                <Route path='/cards/:cardId' render={(props) => <Card {...props.match.params} />} />
                 </div>
             </BrowserRouter>
           </div>
