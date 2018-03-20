@@ -18,8 +18,7 @@ class CardViewer extends Component {
   }
   
   render() {
-    let card = this.props.card,
-      palette = this.props.muiTheme.palette
+    let card = this.props.card
     
     return (
       <div className={"card-viewer card-viewer-" + card.layout + (this.state.flipped ? ' card-viewer-flipped' : '')}  onClick={this.flipHandler.bind(this)}>

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
+import CircularProgress from 'material-ui/CircularProgress'
 
 import CardDetails from './CardDetails'
 import CardViewer from './CardViewer'
@@ -15,22 +16,22 @@ import CardViewer from './CardViewer'
 class Card extends Component {
 
   componentDidMount() {
-    if (!this.props.singleCards[this.props.cardId]) {
+    if (this.props.cardId && !this.props.singleCards[this.props.cardId]) {
       this.props.fetchCard(this.props.cardId)
     }
   }
   
   render() {
     // show a loading message while loading data
-    let card = this.props.singleCards[this.props.cardId],
+    let card = this.props.cardId ? this.props.singleCards[this.props.cardId] : null,
       palette = this.props.muiTheme.palette
     
     if (!card || card.loading) {
-      return (<span>Loading...</span>)
+      return (<div className="loading-wheel"><CircularProgress size={80} thickness={5} /></div>)
     }
       
     return (
-      <div>
+      <div className="card">
         <CardViewer card={card.details} />
 
         <div className="card-details" style={{ backgroundColor: palette.canvasColor }}>
@@ -52,10 +53,31 @@ Card.propTypes = {
   /**
    * Scryfall id of the card to display
    * 
-   * @property cardid
+   * @property cardId
    * @type string
    */
-  cardId: PropTypes.string
+  cardId: PropTypes.string,
+  
+  /**
+   * { id : details } map of cards available to display
+   * 
+   * @property singleCards
+   * @type Object
+   */
+  singleCards: PropTypes.object,
+  
+  /**
+   * Method to retrieve uncached cards from the API
+   * 
+   * @property fetchCards
+   * @type function
+   */
+  fetchCard: PropTypes.func.isRequired
+}
+
+Card.defaultProps = {
+  singleCards: {},
+  fetchCards: function() {}
 }
 
 export default muiThemeable()(Card)

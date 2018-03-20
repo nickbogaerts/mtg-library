@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import List from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
+import CircularProgress from 'material-ui/CircularProgress'
+import List from 'material-ui/List'
 import ListItemWithRouter from './ListItemWithRouter'
 
 class Sets extends Component {
@@ -14,7 +15,7 @@ class Sets extends Component {
   render() {
     // show a loading message while loading data
     if (this.props.loading) {
-      return (<span>Loading...</span>)
+      return (<div className="loading-wheel"><CircularProgress size={80} thickness={5} /></div>)
     }
 
     // iterate over all the sets loaded from our API

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import { fetchSet } from '../actions/cards.js'
 import { changeCardCount } from '../actions/savedCards.js'
-import Set from '../Set.js'
+import Set from '../components/Set.js'
 
 function mapDispatchToProps(dispatch) {
   return {

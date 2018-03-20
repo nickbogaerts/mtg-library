@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import { fetchSets } from '../actions/sets.js'
-import Sets from '../Sets.js'
+import Sets from '../components/Sets.js'
 
 function mapDispatchToProps(dispatch) {
   return {

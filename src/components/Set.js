@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import LazyLoad from 'react-lazyload'
 import { Link } from 'react-router-dom'
+import CircularProgress from 'material-ui/CircularProgress'
 import { GridList, GridTile } from 'material-ui/GridList'
 import Counter from './Counter'
 
@@ -21,7 +22,7 @@ class Sets extends Component {
     
     // show a loading message while loading data
     if (!set || set.loading) {
-      return (<span>Loading...</span>)
+      return (<div className="loading-wheel"><CircularProgress size={80} thickness={5} /></div>)
     }
     
 
