@@ -2,9 +2,12 @@
  * Actions for cards
  */
 
+import { fetchCards } from './cards'
+
 export const CARD_IS_LOADING = 'CARD_IS_LOADING'
 export const CARD_HAS_LOADED = 'CARD_HAS_LOADED'
 export const CARD_HAS_FAILED_LOADING = 'CARD_HAS_FAILED_LOADING'
+export const PRINTINGS_HAVE_LOADED = 'PRINTINGS_HAVE_LOADED'
 
 export function cardIsLoading(cardId, loading) {
   return {
@@ -27,6 +30,13 @@ export function cardHasFailedLoading(cardId, error) {
   }
 }
 
+export function printingsHaveLoaded(cardId, printings) {
+  return {
+    type: PRINTINGS_HAVE_LOADED,
+    value: { cardId, printings }
+  }
+}
+
 export function fetchCard(cardId) {
   return (dispatch) => {
     dispatch(cardIsLoading(cardId, true))
@@ -37,7 +47,12 @@ export function fetchCard(cardId) {
         }
         return response.json()
       })
-      .then(card => dispatch(cardHasLoaded(cardId, card)))
+      .then((card) => {
+        dispatch(cardHasLoaded(cardId, card))
+        return card
+      })
+      .then(card => fetchCards(card.prints_search_uri, (printings) => dispatch(printingsHaveLoaded(cardId, printings))))
+      .then(card => dispatch(cardIsLoading(cardId, false)))
       .catch(error => dispatch(cardHasFailedLoading(cardId, error)))
     }
 }

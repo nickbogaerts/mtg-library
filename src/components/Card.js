@@ -5,6 +5,7 @@ import CircularProgress from 'material-ui/CircularProgress'
 
 import CardDetails from './CardDetails'
 import CardViewer from './CardViewer'
+import Printings from './Printings'
 
 /**
  * Fetches and displays properties of one card from Scryfall
@@ -18,6 +19,12 @@ class Card extends Component {
   componentDidMount() {
     if (this.props.cardId && !this.props.singleCards[this.props.cardId]) {
       this.props.fetchCard(this.props.cardId)
+    }
+  }
+  
+  componentWillUpdate(nextProps) {
+    if (nextProps.cardId && !nextProps.singleCards[nextProps.cardId]) {
+      nextProps.fetchCard(nextProps.cardId)
     }
   }
   
@@ -44,6 +51,7 @@ class Card extends Component {
             <CardDetails face={card.details} />
           )}
         </div>
+        <Printings selectedPrintingId={this.props.cardId} printings={card.printings} />
       </div>
     )
   }
