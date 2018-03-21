@@ -7,16 +7,28 @@ import Counter from './Counter'
 
 const Printings = ({printings, savedCards, selectedPrintingId, history}) => {
   
-  let regularTotal = printings.reduce((total = 0, printing) => total + (printing.id in savedCards ? savedCards[printing.id].regular : 0)),
-    foilTotal = printings.reduce((total = 0, printing) => total + (printing.id in savedCards ? savedCards[printing.id].foil : 0))
+  let regularTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].regular : 0), 0),
+    foilTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].foil : 0), 0)
+    
+    console.log(regularTotal, foilTotal);
   return (
-    <Table onRowSelection={ (rowNumber) => { history.push('/cards/' + printings[rowNumber].id) }  }>
+    <Table onRowSelection={ (rowNumber) => {
+        if (rowNumber.length) {
+          history.push('/cards/' + printings[rowNumber[0]].id)
+        }
+      } }>
       <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableRow>
           <TableHeaderColumn>Printing</TableHeaderColumn>
           <TableHeaderColumn>Regular</TableHeaderColumn>
           <TableHeaderColumn>Foil</TableHeaderColumn>
           <TableHeaderColumn>Total</TableHeaderColumn>
+        </TableRow>
+        <TableRow>
+          <TableHeaderColumn>Total</TableHeaderColumn>
+          <TableHeaderColumn>{regularTotal}</TableHeaderColumn>
+          <TableHeaderColumn>{foilTotal}</TableHeaderColumn>
+          <TableHeaderColumn>{ regularTotal + foilTotal }</TableHeaderColumn>
         </TableRow>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
@@ -35,14 +47,6 @@ const Printings = ({printings, savedCards, selectedPrintingId, history}) => {
           })
         }
       </TableBody>
-      <TableFooter adjustForCheckbox={false}>
-        <TableRow>
-              <TableRowColumn>Total</TableRowColumn>
-              <TableRowColumn>{regularTotal}</TableRowColumn>
-              <TableRowColumn>{foilTotal}</TableRowColumn>
-              <TableRowColumn>{ regularTotal + foilTotal }</TableRowColumn>
-        </TableRow>
-      </TableFooter>
     </Table>
   )
 }
