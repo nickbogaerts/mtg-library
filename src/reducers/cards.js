@@ -15,7 +15,11 @@ function cards(state = {}, action) {
       
     case SET_HAS_LOADED:
       currentSet = state[action.value.code] || {}
-      currentSet.cards = action.value.cards
+      if (currentSet.cards) {
+        currentSet.cards.push(...action.value.cards)
+      } else {
+        currentSet.cards = action.value.cards 
+      }
       break
     case SET_HAS_FAILED_LOADING:
       currentSet = state[action.value.code] || {}

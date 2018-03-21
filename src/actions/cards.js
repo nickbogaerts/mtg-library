@@ -31,17 +31,24 @@ export function setHasFailedLoading(code, error) {
 export function fetchSet(code) {
   return (dispatch) => {
     dispatch(setIsLoading(code, true))
-    fetch('https://api.scryfall.com/cards/search?order=set&q=s:' + code)
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        dispatch(setIsLoading(code, false));
-        dispatch(setHasFailedLoading(code, false))
-        return response.json()
-      })
-      .then(response => response.data)
-      .then((set) => dispatch(setHasLoaded(code, set)))
+    _fetchCards(dispatch, code, 'https://api.scryfall.com/cards/search?order=set&q=s:' + code)
+      .then(() => dispatch(setIsLoading(code, false)))
       .catch(error => dispatch(setHasFailedLoading(code, error)))
     }
+}
+
+function _fetchCards(dispatch, code, url) {
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      };
+      return response.json()
+    })
+    .then(response => {
+      dispatch(setHasLoaded(code, response.data))
+      if (response.has_more) {
+        return _fetchCards(dispatch, code, response.next_page)
+      }
+    })
 }

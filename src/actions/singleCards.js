@@ -20,7 +20,6 @@ export function cardHasLoaded(cardId, card) {
   }
 }
 
-
 export function cardHasFailedLoading(cardId, error) {
   return {
     type: CARD_HAS_FAILED_LOADING,
