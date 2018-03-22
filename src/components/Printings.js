@@ -1,16 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import { Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import { withRouter } from 'react-router-dom'
 import Counter from './Counter'
 
-const Printings = ({printings, savedCards, selectedPrintingId, history}) => {
+const Printings = ({printings, savedCards, selectedPrintingId, sets, history}) => {
   
   let regularTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].regular : 0), 0),
     foilTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].foil : 0), 0)
     
-    console.log(regularTotal, foilTotal);
   return (
     <Table onRowSelection={ (rowNumber) => {
         if (rowNumber.length) {
@@ -35,10 +34,12 @@ const Printings = ({printings, savedCards, selectedPrintingId, history}) => {
         {
           printings.map((printing) => {
             let regular = printing.id in savedCards ? savedCards[printing.id].regular : 0,
-              foil = printing.id in savedCards ? savedCards[printing.id].foil : 0
+              foil = printing.id in savedCards ? savedCards[printing.id].foil : 0,
+              set = sets.find(set => set.code === printing.set)
+            
             return (
               <TableRow key={printing.id} selected={ printing.id === selectedPrintingId }>
-                <TableRowColumn>{printing.set_name}</TableRowColumn>
+                <TableRowColumn>{ set ? (<img width="48px" height="48px" src={set.icon_svg_uri} alt={printing.set_name} title={printing.set_name} />) : printing.set_name }</TableRowColumn>
                 <TableRowColumn>{regular}</TableRowColumn>
                 <TableRowColumn>{foil}</TableRowColumn>
                 <TableRowColumn>{ regular + foil }</TableRowColumn>
@@ -52,6 +53,14 @@ const Printings = ({printings, savedCards, selectedPrintingId, history}) => {
 }
 
 Printings.propTypes = {
+  /**
+   * List of sets
+   * @property sets
+   * @type array
+   * @default {}
+   */
+  sets: PropTypes.array.isRequired,
+
   /**
    * List of different printings of this card
    * @property printings
@@ -79,7 +88,8 @@ Printings.propTypes = {
 
 Printings.defaultProps = {
   printings: [],
-  savedCards: {}
+  savedCards: {},
+  sets: []
 }
 
 export default muiThemeable()(withRouter(Printings))

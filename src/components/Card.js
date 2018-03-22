@@ -17,6 +17,9 @@ import Printings from './Printings'
 class Card extends Component {
 
   componentDidMount() {
+    if (!this.props.sets.length) {
+      this.props.fetchSets()
+    }
     if (this.props.cardId && !this.props.singleCards[this.props.cardId]) {
       this.props.fetchCard(this.props.cardId)
     }
@@ -51,7 +54,7 @@ class Card extends Component {
             <CardDetails face={card.details} />
           )}
         </div>
-        <Printings selectedPrintingId={this.props.cardId} printings={card.printings} />
+        <Printings selectedPrintingId={this.props.cardId} printings={card.printings} sets={this.props.sets} />
       </div>
     )
   }
@@ -75,17 +78,33 @@ Card.propTypes = {
   singleCards: PropTypes.object,
   
   /**
-   * Method to retrieve uncached cards from the API
+   * Callback to retrieve uncached cards from the API
    * 
    * @property fetchCards
    * @type function
    */
-  fetchCard: PropTypes.func.isRequired
+  fetchCard: PropTypes.func.isRequired,
+  
+  /**
+   * List ofsets
+   * 
+   * @property sets
+   * @type array
+   */
+  
+  /**
+   * Callback to retrieve sets from the API
+   * 
+   * @property 
+   */
+  fetchSets: PropTypes.func.isRequired
 }
 
 Card.defaultProps = {
+  sets: [],
   singleCards: {},
-  fetchCards: function() {}
+  fetchCards: function() {},
+  fetchSets: function() {}
 }
 
 export default muiThemeable()(Card)
