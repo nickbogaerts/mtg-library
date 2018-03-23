@@ -54,7 +54,7 @@ class Card extends Component {
             <CardDetails face={card.details} />
           )}
         </div>
-        <Printings selectedPrintingId={this.props.cardId} printings={card.printings} sets={this.props.sets} />
+        <Printings selectedPrintingId={this.props.cardId} printings={card.printings} sets={this.props.sets} changeCardCount={this.props.changeCardCount} />
       </div>
     )
   }
@@ -97,14 +97,20 @@ Card.propTypes = {
    * 
    * @property 
    */
-  fetchSets: PropTypes.func.isRequired
+  fetchSets: PropTypes.func.isRequired,
+  
+  /**
+   * Action to update card count
+   */
+  changeCardCount: PropTypes.func.isRequired
 }
 
 Card.defaultProps = {
   sets: [],
   singleCards: {},
-  fetchCards: function() {},
-  fetchSets: function() {}
+  fetchCards: () => {},
+  fetchSets: () => {},
+  changeCardCount: () => {}
 }
 
 export default muiThemeable()(Card)

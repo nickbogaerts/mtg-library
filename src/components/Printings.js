@@ -5,18 +5,16 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import { withRouter } from 'react-router-dom'
 import Counter from './Counter'
 
-const Printings = ({printings, savedCards, selectedPrintingId, sets, history}) => {
+import './Printings.css'
+
+const Printings = ({printings, savedCards, selectedPrintingId, sets, history, changeCardCount}) => {
   
   let regularTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].regular : 0), 0),
     foilTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].foil : 0), 0)
     
   return (
-    <Table onRowSelection={ (rowNumber) => {
-        if (rowNumber.length) {
-          history.push('/cards/' + printings[rowNumber[0]].id)
-        }
-      } }>
-      <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+    <Table className="printings">
+      <TableHeader displaySelectAll={false}>
         <TableRow>
           <TableHeaderColumn>Printing</TableHeaderColumn>
           <TableHeaderColumn>Regular</TableHeaderColumn>
@@ -30,7 +28,7 @@ const Printings = ({printings, savedCards, selectedPrintingId, sets, history}) =
           <TableHeaderColumn>{ regularTotal + foilTotal }</TableHeaderColumn>
         </TableRow>
       </TableHeader>
-      <TableBody displayRowCheckbox={false}>
+      <TableBody>
         {
           printings.map((printing) => {
             let regular = printing.id in savedCards ? savedCards[printing.id].regular : 0,
@@ -38,10 +36,10 @@ const Printings = ({printings, savedCards, selectedPrintingId, sets, history}) =
               set = sets.find(set => set.code === printing.set)
             
             return (
-              <TableRow key={printing.id} selected={ printing.id === selectedPrintingId }>
+              <TableRow key={printing.id} striped={ printing.id === selectedPrintingId }>
                 <TableRowColumn>{ set ? (<img width="48px" height="48px" src={set.icon_svg_uri} alt={printing.set_name} title={printing.set_name} />) : printing.set_name }</TableRowColumn>
-                <TableRowColumn>{regular}</TableRowColumn>
-                <TableRowColumn>{foil}</TableRowColumn>
+                <TableRowColumn><Counter count={regular} buttonSize={18} onChangeCount={ (count) => { changeCardCount(printing.id, false, count) }} /></TableRowColumn>
+                <TableRowColumn><Counter count={foil} buttonSize={18} onChangeCount={ (count) => { changeCardCount(printing.id, true, count) }} /></TableRowColumn>
                 <TableRowColumn>{ regular + foil }</TableRowColumn>
               </TableRow>
             )
@@ -82,14 +80,20 @@ Printings.propTypes = {
    * @type Object
    * @default {}
    */
-  savedCards: PropTypes.object.isRequired
+  savedCards: PropTypes.object.isRequired,
+  
+  /**
+   * Action to update card count
+   */
+  changeCardCount: PropTypes.func.isRequired
   
 }
 
 Printings.defaultProps = {
   printings: [],
   savedCards: {},
-  sets: []
+  sets: [],
+  changeCardCount: () => {}
 }
 
 export default muiThemeable()(withRouter(Printings))
