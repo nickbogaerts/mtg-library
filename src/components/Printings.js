@@ -10,8 +10,10 @@ import './Printings.css'
 const Printings = ({printings, savedCards, selectedPrintingId, sets, history, changeCardCount}) => {
   
   let regularTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].regular : 0), 0),
-    foilTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].foil : 0), 0)
+    foilTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].foil : 0), 0),
+    setsMap = {}
     
+  sets.forEach(set => { setsMap[set.code] = set} ) 
   return (
     <Table className="printings">
       <TableHeader displaySelectAll={false}>
@@ -33,7 +35,7 @@ const Printings = ({printings, savedCards, selectedPrintingId, sets, history, ch
           printings.map((printing) => {
             let regular = printing.id in savedCards ? savedCards[printing.id].regular : 0,
               foil = printing.id in savedCards ? savedCards[printing.id].foil : 0,
-              set = sets.find(set => set.code === printing.set)
+              set = setsMap[printing.set]
             
             return (
               <TableRow key={printing.id} striped={ printing.id === selectedPrintingId }>
