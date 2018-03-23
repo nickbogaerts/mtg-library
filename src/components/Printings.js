@@ -9,8 +9,8 @@ import './Printings.css'
 
 const Printings = ({printings, savedCards, selectedPrintingId, sets, history, changeCardCount}) => {
   
-  let regularTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].regular : 0), 0),
-    foilTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? savedCards[printing.id].foil : 0), 0),
+  let regularTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? (savedCards[printing.id].regular || 0) : 0), 0),
+    foilTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? (savedCards[printing.id].foil || 0) : 0), 0),
     setsMap = {}
     
   sets.forEach(set => { setsMap[set.code] = set} ) 
@@ -33,8 +33,8 @@ const Printings = ({printings, savedCards, selectedPrintingId, sets, history, ch
       <TableBody>
         {
           printings.map((printing) => {
-            let regular = printing.id in savedCards ? savedCards[printing.id].regular : 0,
-              foil = printing.id in savedCards ? savedCards[printing.id].foil : 0,
+            let regular = printing.id in savedCards ? (savedCards[printing.id].regular || 0) : 0,
+              foil = printing.id in savedCards ? (savedCards[printing.id].foil || 0) : 0,
               set = setsMap[printing.set]
             
             return (

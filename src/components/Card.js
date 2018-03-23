@@ -54,7 +54,7 @@ class Card extends Component {
             <CardDetails face={card.details} />
           )}
         </div>
-        <Printings selectedPrintingId={this.props.cardId} printings={card.printings} sets={this.props.sets} changeCardCount={this.props.changeCardCount} />
+        <Printings selectedPrintingId={this.props.cardId} printings={card.printings} {...this.props}  />
       </div>
     )
   }
