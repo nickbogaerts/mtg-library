@@ -1,15 +1,17 @@
 import { connect } from 'react-redux'
 
-import { fetchCard } from '../actions/singleCards.js'
-import { fetchSets } from '../actions/sets.js'
-import { changeCardCount } from '../actions/savedCards.js'
-import Card from '../components/Card.js'
+import { fetchCard } from '../actions/singleCards'
+import { fetchSets } from '../actions/sets'
+import { changeCardCount } from '../actions/savedCards'
+import { selectCard, deselectCard } from '../actions/selection'
+import Card from '../components/Card'
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchCard: (cardId) => dispatch(fetchCard(cardId)),
     fetchSets: (sets) => dispatch(fetchSets()),
-    changeCardCount: (cardId, foil, count) => dispatch(changeCardCount(cardId, foil, count))
+    changeCardCount: (cardId, foil, count) => dispatch(changeCardCount(cardId, foil, count)),
+    cardSelectHandler: (card) => dispatch(card ? selectCard(card) : deselectCard())
   }
 }
 

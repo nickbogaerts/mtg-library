@@ -7,7 +7,7 @@ import Counter from './Counter'
 
 import './Printings.css'
 
-const Printings = ({printings, savedCards, selectedPrintingId, sets, history, changeCardCount}) => {
+const Printings = ({printings, savedCards, selectedPrintingId, sets, history, changeCardCount, cardSelectHandler}) => {
   
   let regularTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? (savedCards[printing.id].regular || 0) : 0), 0),
     foilTotal = printings.reduce((total, printing) => total + (printing.id in savedCards ? (savedCards[printing.id].foil || 0) : 0), 0),
@@ -15,7 +15,7 @@ const Printings = ({printings, savedCards, selectedPrintingId, sets, history, ch
     
   sets.forEach(set => { setsMap[set.code] = set} ) 
   return (
-    <Table className="printings">
+    <Table className="printings" onRowSelection={ (i) => cardSelectHandler(printings[i] || null) }>
       <TableHeader displaySelectAll={false}>
         <TableRow>
           <TableHeaderColumn>Printing</TableHeaderColumn>
@@ -86,8 +86,17 @@ Printings.propTypes = {
   
   /**
    * Action to update card count
+   * @property changeCardCount
+   * @type function
    */
-  changeCardCount: PropTypes.func.isRequired
+  changeCardCount: PropTypes.func.isRequired,
+  
+  /**
+   * Handler for the card selection handler
+   * @property cardSelectHandler
+   * @type function
+   */
+  cardSelectHandler: PropTypes.func.isRequired
   
 }
 
@@ -95,6 +104,7 @@ Printings.defaultProps = {
   printings: [],
   savedCards: {},
   sets: [],
+  cardSelectHandler: () => {},
   changeCardCount: () => {}
 }
 

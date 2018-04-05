@@ -95,14 +95,24 @@ Card.propTypes = {
   /**
    * Callback to retrieve sets from the API
    * 
-   * @property 
+   * @property fetchSets
+   * @type function
    */
   fetchSets: PropTypes.func.isRequired,
   
   /**
    * Action to update card count
    */
-  changeCardCount: PropTypes.func.isRequired
+  changeCardCount: PropTypes.func.isRequired,
+  
+  /**
+   * Handler for the card selection handler
+   * @property cardSelectHandler
+   * @type function
+   */
+  cardSelectHandler: PropTypes.func.isRequired
+  
+  
 }
 
 Card.defaultProps = {
